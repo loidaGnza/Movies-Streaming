@@ -40,10 +40,10 @@ app.use('*', (req, res)=> {
     responseHandlers.error({
         res,
         status: 404,
-        message: 'URL not found, please try with http://localhost:9000/',
+        message: `URL not found, please try with ${config.host}`,
     })
 })
 
 app.listen(config.port,() => {
-    console.log('Server started at port 9000')
+    console.log(`Server started at port ${config.port}`)
 })
