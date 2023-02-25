@@ -1,6 +1,7 @@
 const checkUserCredentials = require('./auth.controller')
 const response = require('../utils/handleResponses')
 const jwt = require('jsonwebtoken')
+const config = require('../../config').api
 
 const postLogin = (req, res) => {
     const { email, password } = req.body
@@ -12,7 +13,7 @@ const postLogin = (req, res) => {
                     id: data.id,
                     email: data.email,
                     firstName: data.firstName
-                }, 'academlo', {
+                }, config.secretOrKey, {
                     expiresIn: '1d'
                 })
 
