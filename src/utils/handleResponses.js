@@ -10,11 +10,14 @@
 //* }
 
 //? Para respuestas exitosas
-const success = ({status, data, message, res}) => {
+const success = ({status, data, message, res, next, prev, count}) => {
     res.status(status).json({
         error: false,
         status: status,
         message: message,
+        count ,
+        next,
+        prev,
         data: data
     })
 } 

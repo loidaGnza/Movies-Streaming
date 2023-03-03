@@ -2,29 +2,40 @@ const Movies = require ('../models/movies.models')
 const MovieGenres = require('../models/movie_genres.models.js')
 const uuid = require('uuid')
 const Genres = require ('../models/genres.models')
+const { Op } = require ('sequelize')
 
-const findAllMovies = async (limit, offset) => {
+
+const findAllMovies = async (limit, offset, search) => {
 // ? Limit -> cauntos quiero mostrar
 // ? offset= compensar -> donde empiezo a mostrar
-// const queryOptions ={
-    // limit: limit || 20,
-    // offset:offset || 0
-// 
-// if(limit &&  offset){
-//     queryOptions.limit = limit
-//     queryOptions.offset = offset
-// }
+const queryOptions ={
+    limit: limit ,
+    offset:offset,
+    where:{
 
-    const data = await Movies.findAndCountAll()
+    } 
+
+}
+if(search){
+    queryOptions.where = {
+        title:{ 
+            [Op.iLike] : `%${search}% `
+        }// Like  -> Case Sensitive -> Diferencia entre mayuscula y minuscula -> los 
+    // iLike -> Not Case Sensitive -> No genera entre mayuscula y minuscula
+        }
+    }
+    
+    const data = await Movies.findAndCountAll(queryOptions)
     return data 
 }
 
+
 const createMovie = async (movieObj) => {
     const newMovie ={
-        id: uiid.v4(),
+        id: uuid.v4(),
         title: movieObj.title,
         synopsis: movieObj.synopsis,
-        releasesYear: movieObj.releasesYear,
+        releaseYear: movieObj.releaseYear,
         director: movieObj.director,
         duration: movieObj.duration,
         trillerUrl: movieObj.trillerUrl,
