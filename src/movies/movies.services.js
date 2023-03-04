@@ -46,7 +46,7 @@ const postMovie = async (req, res) => {
         const data =await moviesControllers.createMovie({...movieobj, movieUrl})
         responses.success({
             res,
-            satus:201,
+            status:201,
             data,
             message:'MOvie created!'
         })
